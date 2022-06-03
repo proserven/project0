@@ -1,5 +1,6 @@
 package com.revature.controllers;
 
+import com.revature.advice.AuthAspect;
 import com.revature.annotations.Authorized;
 import com.revature.models.Order;
 import com.revature.models.Product;
@@ -8,16 +9,21 @@ import com.revature.models.User;
 import com.revature.repositories.OrderRepository;
 import com.revature.repositories.ProductRepository;
 import com.revature.repositories.UserRepository;
+import com.revature.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping("/orders")
 public class OrderController {
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     OrderRepository orderRepository;
@@ -28,56 +34,37 @@ public class OrderController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    AuthAspect authAspect;
+
 
     @Authorized(allowedRoles = {Role.ADMIN, Role.EMPLOYEE, Role.CUSTOMER})
-    @GetMapping
-    List<Order> getOrders() {
-        return orderRepository.findAll();
+    @GetMapping()
+    public ResponseEntity<List<Order>> findAll() {
+        return ResponseEntity.ok(orderRepository.findAll());
     }
 
-    @Authorized(allowedRoles = {Role.ADMIN, Role.EMPLOYEE, Role.CUSTOMER})
+    @Authorized(allowedRoles = {Role.ADMIN, Role.EMPLOYEE})
     @GetMapping("/{order_id}")
-    Optional<Order> getOrderById(@PathVariable("order_id") int order_id) {
-        return orderRepository.findById(order_id);
+    public ResponseEntity<Order> findById(@PathVariable("order_id") int order_id) {
+        return ResponseEntity.ok(orderRepository.findById(order_id).get());
     }
 
     @Authorized(allowedRoles = {Role.ADMIN, Role.CUSTOMER, Role.EMPLOYEE})
     @PostMapping
-    Order createOrder(@RequestBody Order order) {
-        return orderRepository.save(order);
+    public ResponseEntity<Order> insert(@RequestBody Order order) {
+        return ResponseEntity.accepted().body(orderRepository.save(order));
     }
 
     @Authorized(allowedRoles = {Role.ADMIN, Role.CUSTOMER, Role.EMPLOYEE})
     @PutMapping("/{order_id}/products/{product_id}")
-    Order addProductToOrder(
-            @PathVariable("order_id") int order_id,
-            @PathVariable("product_id") int product_id) {
-        Order order = orderRepository.findById(order_id).get();
-        Product product = productRepository.findById(product_id).get();
-        order.addProduct(product);
-        return orderRepository.save(order);
-    }
+        Order addOrderToCart (
+        @PathVariable("order_id") int order_id,
+        @PathVariable("product_id") int product_id){
+            Order order = orderRepository.findById(order_id).get();
+            Product product = productRepository.findById(product_id).get();
+            order.addProduct(product);
+            return orderRepository.save(order);
+        }
 
-    @Authorized(allowedRoles = {Role.ADMIN, Role.CUSTOMER, Role.EMPLOYEE})
-    @PutMapping("/{order_id}/products/{product_id}/quantity/{quantity}")
-    Order addProductToOrder(
-            @PathVariable("order_id") int order_id,
-            @PathVariable("product_id") int product_id,
-            @PathVariable("quantity") int quantity) {
-        Order order = orderRepository.findById(order_id).get();
-        Product product = productRepository.findById(product_id).get();
-        order.addProduct(product);
-        return orderRepository.save(order);
     }
-
-    @Authorized(allowedRoles = {Role.ADMIN, Role.CUSTOMER, Role.EMPLOYEE})
-    @PutMapping("/{order_id}/users/{user_id}")
-    Order addUserToOrder(
-            @PathVariable("order_id") int order_id,
-            @PathVariable("user_id") int user_id) {
-        Order order = orderRepository.findById(order_id).get();
-        User user = userRepository.findById(user_id).get();
-        order.assignUser(user);
-        return orderRepository.save(order);
-    }
-}

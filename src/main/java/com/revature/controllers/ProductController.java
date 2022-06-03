@@ -30,12 +30,11 @@ public class ProductController {
         return productRepository.findById(product_id).get();
     }
 
-    //Code to delete
+    //TODO: Need to verify the code is working after adding the order.
     @Authorized(allowedRoles = {Role.ADMIN, Role.EMPLOYEE, Role.CUSTOMER})
     @GetMapping("/{product_id}/orders")
-    Set<Order> getOrders(@PathVariable("product_id") int product_id) {
-        Product product = productRepository.findById(product_id).get();
-        return product.getOrders();
+    Set<Order> getOrdersByProductId(@PathVariable("product_id") int product_id) {
+        return productRepository.findById(product_id).get().getOrders();
     }
 
     @Authorized(allowedRoles = {Role.ADMIN, Role.EMPLOYEE})
@@ -51,6 +50,12 @@ public class ProductController {
         productToUpdate.setProduct_price(product.getProduct_price());
         productToUpdate.setProduct_quantity(product.getProduct_quantity());
         return productRepository.save(productToUpdate);
+    }
+
+    @Authorized(allowedRoles = {Role.ADMIN})
+    @DeleteMapping("/{product_id}")
+    public void deleteProduct(@PathVariable("product_id") int product_id) {
+        productRepository.deleteById(product_id);
     }
 
 }

@@ -1,13 +1,13 @@
 package com.revature.models;
 
+import com.revature.annotations.Email;
+import com.revature.annotations.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
-
-import static javax.persistence.CascadeType.ALL;
 
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name = "users", schema = "project0") // This tells Hibernate to make a table out of this class

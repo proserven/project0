@@ -1,9 +1,12 @@
 package com.revature.controllers;
 
 import com.revature.annotations.Authorized;
+import com.revature.models.Order;
 import com.revature.models.Product;
 import com.revature.models.Role;
 import com.revature.models.User;
+import com.revature.repositories.OrderRepository;
+import com.revature.repositories.ProductRepository;
 import com.revature.services.AuthorizationService;
 import com.revature.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +19,23 @@ import java.util.List;
 @RequestMapping("/users")   // This is the base URL for all of the methods in this controller
 public class UserController {
 
-    @Autowired
-    private UserService userService;
 
     @Autowired
-    private AuthorizationService authorizationService;
+    UserService userService;
+
+    @Autowired
+    ProductRepository productRepository;
+
+    @Autowired
+    OrderRepository orderRepository;
+
+    @Autowired
+    AuthorizationService authorizationService;
+
+    //Get logged in user
+//@GetMapping("/me")
+
+
 
     @Authorized(allowedRoles = {Role.ADMIN})    // This method requires the user to be an admin
     @GetMapping // Map ONLY GET Requests
@@ -52,13 +67,6 @@ public class UserController {
     }
 
 
-//    public ResponseEntity<User> update(@RequestBody User user) {
-//        authorizationService.guardByUserId(user.getUser_id());
-//        // We will also check if this resource belongs to the User, even if they pass the @Authorized annotation
-//        return ResponseEntity.accepted().body(userService.update(user));
-//    }
-
-
     @Authorized(allowedRoles = {Role.ADMIN})
     @DeleteMapping("/{user_id}")
     public ResponseEntity<Void> delete(@PathVariable("user_id") int user_id) {
@@ -68,4 +76,5 @@ public class UserController {
             return ResponseEntity.noContent().build();
         }
     }
-}
+
+    }

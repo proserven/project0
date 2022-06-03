@@ -33,7 +33,7 @@ public class AuthAspect {
     // PointCut = Expression for a collection of methods that we will target for injection
     // We will inject advice around any method with the @Authorized annotation
     // Some popular PointCut Expressions: @annotation, within, execute
-    @Around("@annotation(authorized)") // PointCut
+    @Around("@annotation(authorized)") // PointCut Expression
     public Object authenticate(ProceedingJoinPoint pjp, Authorized authorized) throws Throwable {
 
         HttpSession session = req.getSession(false);

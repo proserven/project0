@@ -1,10 +1,12 @@
 package com.revature.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -24,12 +26,8 @@ public class Product {
     private int product_quantity; // This tells Hibernate to create an int field for the quantity column in the database
 
 
-
-    @ManyToMany
-    @JoinTable(name = "order_product", schema = "project0", joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "order_id"))
-    Set<Order> orders_product;
-
+    @ManyToMany(mappedBy = "products_order")
+    private Set<Order> orders_product = new HashSet<>();
 
     public int getProduct_id() {
         return product_id;
@@ -63,11 +61,13 @@ public class Product {
         this.product_quantity = product_quantity;
     }
 
-    public Set<Order> getOrders() {
-        return orders_product;
-    }
-
     public Set<Order> getOrders_product() {
         return orders_product;
     }
+
+    public Set<Order> getOrders() {
+            return null;
+    }
+
+
 }

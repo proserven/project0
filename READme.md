@@ -9,7 +9,7 @@ The project comprises two modules, and this is the demonstration of the first mo
 It’s important to use port 8083 and mail deliverer as a test platform.
 
 This is the UML of the database schema for this project:
-![Databse UML schema](https://drive.google.com/file/d/1Hv-qsmRer19VrG8qaY8SsNy4-Mbrdi4A/view??usp=sharing)
+![Databse UML schema](http://gfusoa.com/images/databaseSchema.PNG)
 
 To use the backend, it is important to follow the procedure:
 

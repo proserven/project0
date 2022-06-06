@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity // This tells Hibernate to make a table out of this class
-@Table(name = "products", schema = "project0") // This tells Hibernate to make a table out of this class
+@Table(name = "products") // This tells Hibernate to make a table out of this class
 @Data   // This tells lombok to generate getters and setters for us
 @AllArgsConstructor // This is a constructor that takes in all the fields
 @NoArgsConstructor  // No-args constructor is required for Hibernate
@@ -25,7 +25,7 @@ public class Product {
     private double product_price; // This tells Hibernate to create a double field for the price column in the database
     private int product_quantity; // This tells Hibernate to create an int field for the quantity column in the database
 
-
+    @JsonIgnore
     @ManyToMany(mappedBy = "products_order")
     private Set<Order> orders_product = new HashSet<>();
 
@@ -66,7 +66,7 @@ public class Product {
     }
 
     public Set<Order> getOrders() {
-            return null;
+        return null;
     }
 
 

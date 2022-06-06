@@ -1,5 +1,6 @@
 package com.revature.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.revature.annotations.Email;
 import com.revature.annotations.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -10,7 +11,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity // This tells Hibernate to make a table out of this class
-@Table(name = "users", schema = "project0") // This tells Hibernate to make a table out of this class
+@Table(name = "users") // This tells Hibernate to make a table out of this class
 @Data // This tells lombok to generate getters and setters for us
 @AllArgsConstructor // This is a constructor that takes in all the fields
 @NoArgsConstructor // No-args constructor is required for Hibernate
@@ -30,6 +31,7 @@ public class User {
     private Role role;
 
     //One-to-many relationship.
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL)
     // This tells Hibernate to create a one-to-many relationship with the cart table
     @JoinColumn(name = "user_id", referencedColumnName = "user_id") // This tells Hibernate to create a foreign key

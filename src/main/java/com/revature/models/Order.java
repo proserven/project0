@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity // This tells Hibernate to make a table out of this class
-@Table(name = "orders", schema = "project0")  // This tells Hibernate to make a table out of this class
+@Table(name = "orders")  // This tells Hibernate to make a table out of this class
 @Data // This tells lombok to generate getters and setters for us
 @AllArgsConstructor    // This is a constructor that takes in all the fields
 @NoArgsConstructor      // No-args constructor is required for Hibernate
@@ -29,9 +29,9 @@ public class Order {
 //    @ManyToMany(mappedBy = "orders_product")
 //    Set<Product> products_order;
 
-//    @JsonIgnore
+    @JsonIgnore
     @ManyToMany
-    @JoinTable(name = "order_product", schema = "project0", joinColumns = @JoinColumn(name = "order_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
+    @JoinTable(name = "order_product", joinColumns = @JoinColumn(name = "order_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
     private Set<Product> products_order = new HashSet<>();
 
     public int getOrder_id() {

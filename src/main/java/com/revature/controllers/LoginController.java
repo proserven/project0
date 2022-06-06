@@ -22,7 +22,7 @@ public class LoginController {
     }
 
     @PostMapping("/logout") // This annotation tells Spring that this method will be mapped to the /logout endpoint
-    public ResponseEntity<Void> logout() {
+    public ResponseEntity<Void> logout() {  // This method returns a ResponseEntity object
         userService.logout();   // This method will call the logout method on the UserService object
         return ResponseEntity.accepted().build();   // This method will return an HTTP response with status code 202
     }

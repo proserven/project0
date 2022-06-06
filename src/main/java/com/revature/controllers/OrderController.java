@@ -57,10 +57,10 @@ public class OrderController {
     }
 
     @Authorized(allowedRoles = {Role.ADMIN, Role.CUSTOMER, Role.EMPLOYEE})
-    @PutMapping("/{order_id}/products/{product_id}")
-        Order addOrderToCart (
-        @PathVariable("order_id") int order_id,
-        @PathVariable("product_id") int product_id){
+        @PostMapping("/{order_id}/{product_id}")
+        //add product to order
+        Order addProductToOrder( @PathVariable("order_id") int order_id,
+                                 @PathVariable("product_id") int product_id){
             Order order = orderRepository.findById(order_id).get();
             Product product = productRepository.findById(product_id).get();
             order.addProduct(product);

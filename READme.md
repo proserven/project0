@@ -6,12 +6,14 @@ Project 0 demonstrates a way to create a back-end platform using Java, Spring Bo
 
 The project comprises two modules, and this is the demonstration of the first module, showing the server side of the full-stack website.
 
-It’s important to use port 8083 and mail deliverer as a test platform.
-
-This is the UML of the database schema for this project:
+The following UML represent the database schema of the project:
 ![Databse UML schema](http://gfusoa.com/images/databaseSchema.PNG)
 
-To use the backend, it is important to follow the procedure:
+## Testing the project using Postman.
+
+Postman is a tool that allows you to test the API of your application, and it is the platform that I used to test the project.
+
+To test the project uses port 8083; you need to create a new collection in Postman, and add the following requests:
 
 Registration of a user: `http://34.207.111.83:8083/users`
 

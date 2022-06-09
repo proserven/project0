@@ -22,8 +22,8 @@ import java.util.Optional;
 @RequestMapping("/orders")
 public class OrderController {
 
-    @Autowired
-    UserService userService;
+//    @Autowired
+//    UserService userService;
 
     @Autowired
     OrderRepository orderRepository;
@@ -31,11 +31,11 @@ public class OrderController {
     @Autowired
     ProductRepository productRepository;
 
-    @Autowired
-    UserRepository userRepository;
-
-    @Autowired
-    AuthAspect authAspect;
+//    @Autowired
+//    UserRepository userRepository;
+//
+//    @Autowired
+//    AuthAspect authAspect;
 
 
     @Authorized(allowedRoles = {Role.ADMIN, Role.EMPLOYEE, Role.CUSTOMER})

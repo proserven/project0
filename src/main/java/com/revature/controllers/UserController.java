@@ -50,7 +50,7 @@ public class UserController {
         return ResponseEntity.ok(userService.findById(user_id));
     }
 
-    @PostMapping
+    @PostMapping  //Registration
     public ResponseEntity<User> insert(@RequestBody User user) {
         return ResponseEntity.accepted().body(userService.insert(user));
     }

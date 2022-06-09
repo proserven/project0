@@ -25,7 +25,7 @@ public class User {
     private String password;  // This tells Hibernate to create a varchar field for the password column in the database
     @NotEmpty(message = "Please enter a valid email")
     @Email
-    private String email; // This tells Hibernate to create a varchar field for the name column in the database
+    private String email;   // This tells Hibernate to create a varchar field for the email column in the database
     private String firstname; // This tells Hibernate to create a varchar field for the firstname column in the database
     private String lastname;  // This tells Hibernate to create a varchar field for the lastname column in the database
     private Role role;
